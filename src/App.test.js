@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders the landing page with both portfolio paths', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getAllByText(/Development/i).length).toBeGreaterThan(0);
+  expect(screen.getAllByText(/SOC/i).length).toBeGreaterThan(0);
 });
