@@ -17,7 +17,7 @@ This file is the single place for the routine procedures used to develop, update
 - Design projects and categories: `src/data/design/` and `src/utils/designCategories.js`.
 - Design Cloudinary setup and image collection tags: `src/utils/cloudinary.js` and `src/data/design/collections.js`.
 - Page structure: `src/pages/` and the corresponding feature components in `src/components/`.
-- Shared contact form and submission endpoint: `src/components/common/ContactSection.js`. Replace its Formspree placeholder with the production form ID before expecting submissions to work.
+- Shared contact form and Web3Forms endpoint: `src/components/common/ContactSection.js`. The Web3Forms access key is sent from the browser and is visible in the built frontend; use the provider's dashboard restrictions and spam protections for production.
 
 ## SEO And Public URLs
 

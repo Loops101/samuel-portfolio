@@ -33,7 +33,7 @@ const projects = [
   },
   {
     title: "CIIA Insurance Agency Website",
-    image: "assets/projects/portfolio-2.webp",
+    image: "assets/projects/CIIA.png",
     category: "web",
     description:
       "A responsive insurance agency website built with integrated Web3 forms for client inquiries and lead capture.",
