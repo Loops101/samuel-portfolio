@@ -26,9 +26,11 @@
   --glass-bg: rgba(27, 27, 27, 0.8);
   --border-color: rgba(236, 236, 236, 0.2);
   --bg-border: #ececec33;
-  --bg-items-color: linear-gradient(45deg,
-      rgba(236, 236, 236, 0.1),
-      rgba(236, 236, 236, 0.05));
+  --bg-items-color: linear-gradient(
+    45deg,
+    rgba(236, 236, 236, 0.1),
+    rgba(236, 236, 236, 0.05)
+  );
 }
 
 [data-theme="light"] {
@@ -51,9 +53,11 @@
   --button-color: #107093;
   /* Teal - Buttons */
   --bg-border: rgba(2, 2, 2, 0.2);
-  --bg-items-color: linear-gradient(45deg,
-      rgba(92, 131, 166, 0.2),
-      rgba(255, 201, 114, 0.1));
+  --bg-items-color: linear-gradient(
+    45deg,
+    rgba(92, 131, 166, 0.2),
+    rgba(255, 201, 114, 0.1)
+  );
 }
 
 body {
@@ -855,7 +859,6 @@ section {
 }
 
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -1083,10 +1086,12 @@ section {
   left: 0;
   right: 0;
   padding: 25px;
-  background: linear-gradient(to top,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.4) 60%,
-      rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
   z-index: 3;
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
   transform: translateY(20px);
@@ -1103,10 +1108,12 @@ section {
   .portfolio .portfolio-wrap .portfolio-info {
     opacity: 1;
     transform: translateY(0);
-    background: linear-gradient(to top,
-        rgba(0, 0, 0, 0.8) 0%,
-        rgba(0, 0, 0, 0.4) 60%,
-        rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      rgba(0, 0, 0, 0) 100%
+    );
     /* Exact desktop gradient */
   }
 
@@ -1241,7 +1248,6 @@ section {
 }
 
 @media (max-width: 991px) {
-
   .services .col-lg-4,
   .testimonial-item {
     flex: 0 0 85%;
