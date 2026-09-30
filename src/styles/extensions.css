@@ -18,6 +18,12 @@
   --button-color: #2fe6a6;
 }
 
+.mode-design {
+  --accent-color: #ff9d5c;
+  --accent-color-rgb: 255, 157, 92;
+  --button-color: #ff9d5c;
+}
+
 [data-theme="light"] .mode-developer {
   --accent-color: #3a5bdc;
   --accent-color-rgb: 58, 91, 220;
@@ -28,6 +34,12 @@
   --accent-color: #0f9d6e;
   --accent-color-rgb: 15, 157, 110;
   --button-color: #0f9d6e;
+}
+
+[data-theme="light"] .mode-design {
+  --accent-color: #d9772f;
+  --accent-color-rgb: 217, 119, 47;
+  --button-color: #d9772f;
 }
 
 /* Reduced motion — global override respected everywhere */
@@ -52,48 +64,35 @@ textarea:focus-visible,
 }
 
 /* ==========================================================================
-   MODE SWITCHER (persistent control to jump between Developer / SOC)
+   MODE SWITCHER (persistent control to jump between Developer / SOC / Design)
    ========================================================================== */
-.mode-switcher {
+.mode-switch-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mode-switch-link {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
   border: 1px solid var(--border-color);
-  border-radius: 999px;
-  padding: 4px;
-  margin: 0 auto 24px;
-  width: fit-content;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  transition: border-color 0.25s ease, background 0.25s ease;
 }
 
-.mode-switcher a {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-family: var(--nav-font);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--default-color);
-  opacity: 0.65;
-  transition: all 0.25s ease;
-}
+.mode-switch-link--developer { color: #6c8cff; }
+.mode-switch-link--soc { color: #2fe6a6; }
+.mode-switch-link--design { color: #ff9d5c; }
 
-.mode-switcher a.active,
-.mode-switcher a:hover {
-  opacity: 1;
-  background: rgba(var(--accent-color-rgb), 0.15);
-  color: var(--accent-color);
-}
-
-.mode-switcher a.mode-home {
-  opacity: 1;
-  font-size: 18px;
-  padding: 8px 12px;
-}
+.mode-switch-link--developer:hover { border-color: rgba(108, 140, 255, 0.5); background: rgba(108, 140, 255, 0.08); }
+.mode-switch-link--soc:hover { border-color: rgba(47, 230, 166, 0.5); background: rgba(47, 230, 166, 0.08); }
+.mode-switch-link--design:hover { border-color: rgba(255, 157, 92, 0.5); background: rgba(255, 157, 92, 0.08); }
 
 /* ==========================================================================
    LANDING PAGE
@@ -191,6 +190,7 @@ textarea:focus-visible,
 
 .landing-tagline .dev-word { color: #6c8cff; }
 .landing-tagline .soc-word { color: #2fe6a6; }
+.landing-tagline .design-word { color: #ff9d5c; }
 
 .landing-statement {
   font-size: 1.05rem;
@@ -219,6 +219,7 @@ textarea:focus-visible,
 
 .circuit-fork .fork-dev { stroke: #6c8cff; }
 .circuit-fork .fork-soc { stroke: #2fe6a6; }
+.circuit-fork .fork-design { stroke: #ff9d5c; }
 
 .circuit-fork circle {
   fill: var(--background-color);
@@ -228,9 +229,15 @@ textarea:focus-visible,
 
 .path-cards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-top: -4px;
+}
+
+@media (max-width: 991px) {
+  .path-cards {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .path-card {
@@ -274,6 +281,7 @@ textarea:focus-visible,
 
 .path-card--dev { --card-accent-rgb: 108, 140, 255; }
 .path-card--soc { --card-accent-rgb: 47, 230, 166; }
+.path-card--design { --card-accent-rgb: 255, 157, 92; }
 
 .path-card-icon {
   width: 48px;
@@ -603,4 +611,402 @@ textarea:focus-visible,
   color: var(--accent-color);
   opacity: 1;
   border-color: rgba(var(--accent-color-rgb), 0.5);
+}
+
+/* ==========================================================================
+   COMPACT PROJECT CARDS (Developer + Design)
+   Two-per-row on mobile by default (see .project-grid-mobile below); full
+   details are deferred to a modal so the card itself stays lightweight.
+   ========================================================================== */
+.portfolio-wrap--compact {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.portfolio-wrap--compact:hover,
+.portfolio-wrap--compact:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -18px rgba(var(--accent-color-rgb), 0.35);
+}
+
+.portfolio-wrap-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+  aspect-ratio: 4 / 3;
+}
+
+.portfolio-wrap-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.portfolio-wrap--compact:hover .portfolio-wrap-media img {
+  transform: scale(1.06);
+}
+
+.portfolio-wrap-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.55) 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.portfolio-wrap--compact:hover .portfolio-wrap-overlay,
+.portfolio-wrap--compact:focus-visible .portfolio-wrap-overlay {
+  opacity: 1;
+}
+
+.portfolio-wrap-cta {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  padding: 6px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.portfolio-info--compact {
+  padding: 12px 4px 4px;
+}
+
+.portfolio-info--compact h4 {
+  font-size: 0.98rem;
+  margin: 2px 0 0;
+}
+
+.portfolio-wrap-client {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin: 2px 0 0;
+}
+
+.portfolio-wrap-desc {
+  font-size: 0.82rem;
+  opacity: 0.75;
+  margin: 6px 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.portfolio-wrap-readmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--accent-color);
+}
+
+/* Two-up grid on small screens: gutter spacing is handled by Bootstrap's
+   own gutter utility classes (gx- and gy-, see project grid JSX), not CSS
+   gap — raw gap on top of 50%-width flex columns causes them to overflow
+   onto separate lines, since 50% + 50% + gap exceeds 100% of the row. */
+@media (max-width: 767px) {
+  .portfolio-info--compact {
+    padding: 10px 2px 2px;
+  }
+  .portfolio-info--compact h4 {
+    font-size: 0.88rem;
+  }
+  .portfolio-wrap-desc {
+    font-size: 0.76rem;
+  }
+}
+
+/* ==========================================================================
+   PROJECT DETAIL MODAL (Developer + Design)
+   ========================================================================== */
+.project-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(5, 8, 14, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 40px 16px;
+}
+
+.project-modal {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  overflow: hidden;
+  animation: modal-pop-in 0.22s ease;
+}
+
+@keyframes modal-pop-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.project-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.project-modal-close:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.project-modal-image {
+  width: 100%;
+  max-height: 320px;
+  overflow: hidden;
+}
+
+.project-modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-modal-body {
+  padding: 26px 28px 30px;
+}
+
+.project-modal-body h3 {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  color: var(--heading-color);
+  margin: 4px 0 6px;
+}
+
+.project-modal-client {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-bottom: 14px;
+}
+
+.project-modal-description {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  opacity: 0.85;
+  margin-bottom: 16px;
+}
+
+.project-modal-subhead {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin: 18px 0 8px;
+}
+
+.project-modal-list {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  opacity: 0.85;
+  padding-left: 20px;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .project-modal-overlay {
+    padding: 0;
+    align-items: stretch;
+  }
+  .project-modal {
+    max-width: none;
+    min-height: 100%;
+    border-radius: 0;
+  }
+  .project-modal-body {
+    padding: 22px 18px 40px;
+  }
+}
+
+/* ==========================================================================
+   MOBILE PROJECT CARDS — title only
+   Two-up cards on a phone are far too narrow for a description plus tech
+   chips; the text wrapped badly and pushed card heights out of alignment.
+   On mobile the card carries the image + title, and everything else moves
+   to the detail modal.
+   ========================================================================== */
+@media (max-width: 767px) {
+  .portfolio-wrap-desc,
+  .portfolio-wrap-client,
+  .portfolio-info--compact .project-meta-row,
+  .portfolio-info--compact .status-badge,
+  .portfolio-info--compact .category {
+    display: none;
+  }
+
+  .portfolio-info--compact h4 {
+    font-size: 0.88rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .portfolio-wrap-readmore {
+    margin-top: 6px;
+  }
+}
+
+/* ==========================================================================
+   NAV / MENU OVERFLOW
+   The sidebar is a fixed-height flex column. Without an internal scroll
+   region, longer menus (Design adds more links) pushed the mode-switch
+   buttons and socials off the bottom of the screen on short viewports.
+   The menu itself now scrolls while the logo and footer stay put.
+   ========================================================================== */
+.header-container {
+  overflow: hidden;
+}
+
+.header-container .navmenu {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Thin, unobtrusive scrollbar for the menu region */
+.header-container .navmenu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.header-container .navmenu::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 999px;
+}
+
+.header-container .navmenu a {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.mode-switch-group {
+  flex-shrink: 0;
+}
+
+.mode-switch-link {
+  text-align: center;
+  line-height: 1.35;
+}
+
+/* Keep the fixed theme toggle clear of the mobile menu button */
+@media (max-width: 1199px) {
+  .theme-toggle-btn.fixed-toggle {
+    top: 14px !important;
+    right: 14px !important;
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 19px !important;
+  }
+}
+
+/* ==========================================================================
+   LANDING PATH CARDS — mobile swipe deck
+   Stacked full-width cards meant only one was visible per screen and the
+   other two paths were easy to miss. On mobile the cards become a
+   horizontal snap-scrolling deck: the next card peeks in at the edge, which
+   signals there's more to swipe to.
+   ========================================================================== */
+@media (max-width: 767px) {
+  .path-cards {
+    display: flex;
+    grid-template-columns: none;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 4px 0 8px;
+  }
+
+  .path-cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .path-card {
+    flex: 0 0 82%;
+    scroll-snap-align: start;
+    padding: 24px 22px;
+  }
+
+  .path-card p {
+    font-size: 0.9rem;
+  }
+
+  /* Swipe affordance beneath the deck */
+  .path-cards-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nav-color);
+    opacity: 0.75;
+  }
+}
+
+/* Hint is mobile-only — all three cards are visible at once on larger screens */
+@media (min-width: 768px) {
+  .path-cards-hint {
+    display: none;
+  }
+}
+
+/* Guard against any child (e.g. the mobile swipe deck) creating sideways
+   page scroll — content should never shift horizontally. */
+.landing-page,
+.index-page {
+  overflow-x: hidden;
+}
+
+/* .landing-hero is a flex container, so .landing-content sizes to its
+   max-content width by default. Once the mobile swipe deck became a flex
+   row, that let the content box grow wider than the screen (pushing the
+   hero text off both edges). Constraining it to the available width keeps
+   the deck scrolling inside its own box instead of stretching the page. */
+.landing-content {
+  width: 100%;
+  min-width: 0;
+}
+
+.path-cards {
+  min-width: 0;
+  max-width: 100%;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from '../components/common/Helmet';
 import Nav from '../components/common/Nav';
 import Footer from '../components/common/Footer';
+import ThemeToggle from '../components/common/ThemeToggle';
 import Seam from '../components/common/Seam';
 import useScrollSpy from '../hooks/useScrollSpy';
 
@@ -16,7 +17,7 @@ import DevTestimonials from '../components/developer/DevTestimonials';
 import ContactSection from '../components/common/ContactSection';
 
 const navLinks = [
-    { id: 'hero', label: 'Home', icon: 'bi-house' },
+    { id: 'hero', label: 'Section Home', icon: 'bi-house' },
     { id: 'about', label: 'About', icon: 'bi-person' },
     { id: 'skills', label: 'Skills', icon: 'bi-code-slash' },
     { id: 'projects', label: 'Projects', icon: 'bi-images' },
@@ -36,6 +37,7 @@ const Developer = () => {
             />
 
             <Nav mode="developer" activeSection={activeSection} links={navLinks} />
+            <ThemeToggle />
 
             <main className="main">
                 <DevHero />

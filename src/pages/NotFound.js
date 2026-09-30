@@ -21,6 +21,7 @@ const NotFound = () => {
                         <Link to="/" className="btn btn-primary">Back Home</Link>
                         <Link to="/developer" className="btn btn-outline">Development</Link>
                         <Link to="/soc" className="btn btn-outline">SOC / Security</Link>
+                        <Link to="/design" className="btn btn-outline">Design</Link>
                     </div>
                 </div>
             </section>

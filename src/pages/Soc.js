@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from '../components/common/Helmet';
 import Nav from '../components/common/Nav';
 import Footer from '../components/common/Footer';
+import ThemeToggle from '../components/common/ThemeToggle';
 import Seam from '../components/common/Seam';
 import useScrollSpy from '../hooks/useScrollSpy';
 
@@ -15,7 +16,7 @@ import SocCertifications from '../components/soc/SocCertifications';
 import ContactSection from '../components/common/ContactSection';
 
 const navLinks = [
-    { id: 'hero', label: 'Home', icon: 'bi-house' },
+    { id: 'hero', label: 'Section Home', icon: 'bi-house' },
     { id: 'about', label: 'About', icon: 'bi-person' },
     { id: 'skills', label: 'Skills', icon: 'bi-shield-check' },
     { id: 'labs', label: 'Labs', icon: 'bi-terminal' },
@@ -36,6 +37,7 @@ const Soc = () => {
             />
 
             <Nav mode="soc" activeSection={activeSection} links={navLinks} />
+            <ThemeToggle />
 
             <main className="main">
                 <SocHero />

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import projects from '../../data/developer/projects';
 import SectionTitle from '../common/SectionTitle';
-import ProjectCard from './ProjectCard';
+import ProjectCard from '../common/ProjectCard';
+import ProjectModal from '../common/ProjectModal';
 
 const categories = [
     { id: '*', label: 'All Projects' },
@@ -13,6 +14,7 @@ const categories = [
 
 const DevProjects = () => {
     const [filter, setFilter] = useState('*');
+    const [activeProject, setActiveProject] = useState(null);
 
     const filtered = filter === '*' ? projects : projects.filter((p) => p.category === filter);
     const usedCategories = new Set(projects.map((p) => p.category));
@@ -48,10 +50,10 @@ const DevProjects = () => {
                     </div>
 
                     <div className="col-lg-9">
-                        <div className="row gy-4" data-aos="fade-up" data-aos-delay="200">
+                        <div className="row gy-4 gx-3 project-grid-mobile" data-aos="fade-up" data-aos-delay="200">
                             {filtered.map((project) => (
-                                <div key={project.title} className="col-6 col-md-6 col-lg-6">
-                                    <ProjectCard project={project} />
+                                <div key={project.title} className="col-6 col-lg-6">
+                                    <ProjectCard project={project} onOpen={setActiveProject} />
                                 </div>
                             ))}
                             {filtered.length === 0 && (
@@ -61,6 +63,10 @@ const DevProjects = () => {
                     </div>
                 </div>
             </div>
+
+            {activeProject && (
+                <ProjectModal project={activeProject} onClose={() => setActiveProject(null)} />
+            )}
         </section>
     );
 };

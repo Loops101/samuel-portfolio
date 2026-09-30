@@ -6,8 +6,10 @@ import { ThemeProvider } from './components/common/ThemeContext';
 import Landing from './pages/Landing';
 import Developer from './pages/Developer';
 import Soc from './pages/Soc';
+import Design from './pages/Design';
 import NotFound from './pages/NotFound';
 import ScrollToTop from './components/common/ScrollToTop';
+import CookieConsent from './components/common/CookieConsent';
 
 const App = () => {
     const [loading, setLoading] = useState(true);
@@ -56,9 +58,11 @@ const App = () => {
                     <Route path="/" element={<Landing />} />
                     <Route path="/developer" element={<Developer />} />
                     <Route path="/soc" element={<Soc />} />
+                    <Route path="/design" element={<Design />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </BrowserRouter>
+            <CookieConsent />
         </ThemeProvider>
     );
 };

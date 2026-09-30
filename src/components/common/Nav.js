@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom';
 import shared from '../../data/shared/personal';
 import { useTheme } from './ThemeContext';
 
+const MODES = {
+    developer: { label: 'Developer', path: '/developer', icon: 'bi-code-slash' },
+    soc: { label: 'SOC / Security', path: '/soc', icon: 'bi-shield-lock' },
+    design: { label: 'Design', path: '/design', icon: 'bi-palette' },
+};
+
 /**
- * Nav — shared header for the Developer and SOC portfolios.
+ * Nav — shared header for the Developer, SOC, and Design portfolios.
  *
- * @param {string} mode - 'developer' | 'soc'
+ * @param {string} mode - 'developer' | 'soc' | 'design'
  * @param {string} activeSection - id of the section currently in view
  * @param {Array<{id:string,label:string,icon:string}>} links - in-page nav links
  */
@@ -14,9 +20,7 @@ const Nav = ({ mode, activeSection, links }) => {
     const [headerShow, setHeaderShow] = useState(false);
     const { theme } = useTheme();
 
-    const otherMode = mode === 'developer' ? 'soc' : 'developer';
-    const otherModeLabel = mode === 'developer' ? 'SOC / Security' : 'Developer';
-    const otherModePath = mode === 'developer' ? '/soc' : '/developer';
+    const otherModes = Object.keys(MODES).filter((m) => m !== mode);
 
     const handleNavClick = (id) => {
         if (headerShow) setHeaderShow(false);
@@ -69,26 +73,13 @@ const Nav = ({ mode, activeSection, links }) => {
                     </ul>
                 </nav>
 
-                <div className="px-2 mt-2">
-                    <Link
-                        to={otherModePath}
-                        className={`mode-switcher-link mode-${otherMode}`}
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '8px',
-                            padding: '10px 12px',
-                            borderRadius: '10px',
-                            border: '1px solid var(--border-color)',
-                            fontFamily: 'var(--mono-font)',
-                            fontSize: '12px',
-                            color: 'var(--accent-color)',
-                        }}
-                    >
-                        <i className={`bi ${mode === 'developer' ? 'bi-shield-lock' : 'bi-code-slash'}`}></i>
-                        Switch to {otherModeLabel}
-                    </Link>
+                <div className="mode-switch-group px-2 mt-2">
+                    {otherModes.map((m) => (
+                        <Link key={m} to={MODES[m].path} className={`mode-switch-link mode-switch-link--${m}`}>
+                            <i className={`bi ${MODES[m].icon}`}></i>
+                            Switch to {MODES[m].label}
+                        </Link>
+                    ))}
                 </div>
 
                 <div className="footer-actions d-flex align-items-center justify-content-center mt-auto pb-3 pt-3 gap-3">

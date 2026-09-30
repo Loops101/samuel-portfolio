@@ -23,6 +23,14 @@ const Footer = ({ mode }) => {
                     </a>
                 </div>
 
+                <button
+                    type="button"
+                    className="cookie-settings-link"
+                    onClick={() => window.dispatchEvent(new Event('open-cookie-settings'))}
+                >
+                    Privacy notice
+                </button>
+
                 <div className="d-flex justify-content-center">
                     <ThemeToggle className="footer-toggle" />
                 </div>

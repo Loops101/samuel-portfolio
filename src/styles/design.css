@@ -1,0 +1,1017 @@
+/* ==========================================================================
+   GRAPHIC DESIGN — EDITORIAL STYLESHEET
+   Scoped entirely to classes prefixed "design-" / "dsn-". This file is only
+   ever used by components in src/components/design/, so it cannot affect
+   the Developer or SOC sections, which never reference these class names.
+   Deliberately avoids glassmorphism, badges, and dashboard-style chrome —
+   large type, real whitespace, and the artwork itself carry the page.
+   ========================================================================== */
+
+.design-page {
+  --dsn-ink: var(--heading-color);
+  --dsn-muted: var(--default-color);
+  --dsn-accent: #ff9d5c;
+}
+
+.design-page .main {
+  overflow-x: hidden;
+}
+
+/* Shared editorial section header — big, left-aligned, no card chrome */
+.design-heading {
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+}
+
+.design-heading .design-eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dsn-accent);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.design-heading h2 {
+  font-family: var(--heading-font);
+  font-weight: 700;
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  color: var(--dsn-ink);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.design-heading p {
+  max-width: 560px;
+  margin: 14px 0 0;
+  color: var(--dsn-muted);
+  opacity: 0.7;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   HERO — editorial, image-led, no glass cards
+   ========================================================================== */
+.design-hero {
+  padding: 120px 20px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.design-hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.design-hero-copy .design-eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dsn-accent);
+  display: block;
+  margin-bottom: 18px;
+}
+
+.design-hero-copy h1 {
+  font-family: var(--heading-font);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 5.6vw, 4.6rem);
+  line-height: 1.05;
+  color: var(--dsn-ink);
+  letter-spacing: -0.015em;
+  margin: 0 0 22px;
+}
+
+.design-hero-copy p.design-hero-sub {
+  font-size: 1.1rem;
+  color: var(--dsn-muted);
+  opacity: 0.75;
+  max-width: 420px;
+  line-height: 1.7;
+  margin: 0 0 32px;
+}
+
+.design-hero-copy .design-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  color: var(--dsn-ink);
+  border-bottom: 1px solid var(--dsn-ink);
+  padding-bottom: 4px;
+  transition:
+    gap 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.design-hero-copy .design-hero-cta:hover {
+  gap: 16px;
+  opacity: 0.7;
+}
+
+/* Collage of cover images, gently offset for an artistic, non-grid feel */
+.design-hero-collage {
+  position: relative;
+  height: 440px;
+}
+
+.design-hero-collage > .protected-image {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.35);
+  animation: design-float 7s ease-in-out infinite;
+}
+
+.design-hero-collage img {
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.design-hero-collage > .protected-image:nth-child(1) {
+  width: 62%;
+  height: 60%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  animation-delay: 0s;
+}
+
+.design-hero-collage > .protected-image:nth-child(2) {
+  width: 48%;
+  height: 46%;
+  bottom: 0;
+  right: 0;
+  z-index: 3;
+  animation-delay: 1.2s;
+}
+
+.design-hero-collage > .protected-image:nth-child(3) {
+  width: 38%;
+  height: 40%;
+  top: 12%;
+  right: 4%;
+  z-index: 1;
+  animation-delay: 2.1s;
+}
+
+@keyframes design-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .design-hero-collage > .protected-image {
+    animation: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .design-hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .design-hero-collage {
+    height: 340px;
+    order: -1;
+  }
+}
+
+@media (max-width: 575px) {
+  .design-hero {
+    padding: 100px 16px 56px;
+  }
+  .design-hero-collage {
+    height: 260px;
+  }
+}
+
+/* ==========================================================================
+   TILES — used by both Featured Work and the full Project Gallery
+   ========================================================================== */
+.design-tile {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 100%;
+}
+
+.design-tile-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--surface-color);
+}
+
+.design-tile-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.design-tile:hover .design-tile-media img,
+.design-tile:focus-visible .design-tile-media img {
+  transform: scale(1.045);
+}
+
+.design-tile-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 22px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 45%,
+    rgba(0, 0, 0, 0.62) 100%
+  );
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.design-tile:hover .design-tile-overlay,
+.design-tile:focus-visible .design-tile-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.design-tile-category {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 4px;
+}
+
+.design-tile-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #fff;
+  font-family: var(--heading-font);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.design-tile-title i {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.design-tile:hover .design-tile-title i {
+  transform: translate(4px, -4px);
+}
+
+/* Static caption shown beneath tiles in the plain gallery (per spec: title
+   + category only, minimal information) */
+.design-tile-caption {
+  padding: 12px 2px 0;
+}
+
+.design-tile-caption .design-tile-caption-title {
+  font-family: var(--heading-font);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dsn-ink);
+  margin: 0;
+}
+
+.design-tile-caption .design-tile-caption-category {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dsn-muted);
+  opacity: 0.6;
+}
+
+/* ==========================================================================
+   FEATURED WORK — asymmetric bento composition
+   ========================================================================== */
+.design-featured {
+  padding: 40px 20px 100px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.design-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
+  gap: 18px;
+}
+
+.design-featured-grid .design-tile.is-large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.design-featured-grid .design-tile {
+  display: flex;
+  flex-direction: column;
+}
+
+.design-featured-grid .design-tile-media {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+
+.design-featured-grid .design-tile-caption {
+  flex: 0 0 auto;
+}
+
+.design-featured-grid .design-tile.is-small {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+@media (min-width: 992px) {
+  .design-featured-grid .design-tile.is-small:nth-of-type(2) {
+    grid-column: span 1;
+  }
+  .design-featured-grid .design-tile.is-small:nth-of-type(3) {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .design-featured-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 260px;
+    gap: 14px;
+  }
+  .design-featured-grid .design-tile.is-large,
+  .design-featured-grid .design-tile.is-small {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  .design-featured-grid .design-tile {
+    height: 260px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .design-featured-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .design-featured-grid .design-tile.is-large {
+    grid-column: span 2;
+    grid-row: span 1;
+    height: 320px;
+  }
+
+  .design-featured-grid .design-tile.is-small {
+    grid-column: span 1;
+  }
+}
+
+/* ==========================================================================
+   EXPLORE MY WORK — filter pills
+   ========================================================================== */
+.design-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto 44px;
+}
+
+.design-filter-pill {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  color: var(--dsn-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.design-filter-pill:hover {
+  border-color: var(--dsn-accent);
+  color: var(--dsn-accent);
+}
+
+.design-filter-pill.is-active {
+  background: var(--dsn-accent);
+  border-color: var(--dsn-accent);
+  color: #1a1206;
+}
+
+/* ==========================================================================
+   PROJECT GALLERY — CSS-columns masonry, organic and image-forward
+   ========================================================================== */
+.design-gallery-wrap {
+  padding: 0 20px 100px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.design-gallery {
+  column-count: 3;
+  column-gap: 22px;
+}
+
+.design-gallery-item {
+  break-inside: avoid;
+  margin-bottom: 22px;
+}
+
+.design-gallery-item .design-tile {
+  aspect-ratio: 4 / 5;
+}
+
+.design-gallery-item .design-tile-media img {
+  object-fit: contain;
+}
+
+.design-gallery-item:nth-child(3n + 2) .design-tile {
+  aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 991px) {
+  .design-gallery {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 575px) {
+  .design-gallery {
+    column-count: 1;
+  }
+  .design-gallery-item .design-tile {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.design-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--dsn-muted);
+  opacity: 0.6;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   SELECTED CLIENTS — minimal typography, no logos invented
+   ========================================================================== */
+.design-clients {
+  padding: 60px 20px 100px;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+}
+
+.design-clients .design-eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dsn-accent);
+  display: block;
+  margin-bottom: 26px;
+}
+
+.design-clients-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px 48px;
+}
+
+.design-clients-list span {
+  font-family: var(--heading-font);
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  font-weight: 600;
+  color: var(--dsn-ink);
+  opacity: 0.55;
+  transition: opacity 0.25s ease;
+}
+
+.design-clients-list span:hover {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   CTA — closing banner, scrolls to existing contact section
+   ========================================================================== */
+.design-cta {
+  padding: 100px 20px;
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.design-cta h2 {
+  font-family: var(--heading-font);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  color: var(--dsn-ink);
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
+}
+
+.design-cta p {
+  font-size: 1.05rem;
+  color: var(--dsn-muted);
+  opacity: 0.7;
+  margin: 0 0 34px;
+}
+
+.design-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  padding: 16px 32px;
+  border-radius: 999px;
+  background: var(--dsn-accent);
+  color: #1a1206;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.design-cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -14px rgba(255, 157, 92, 0.5);
+  color: #1a1206;
+}
+
+/* ==========================================================================
+   CASE STUDY — full-screen, image-led project detail experience
+   ========================================================================== */
+.design-case-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: var(--background-color);
+  overflow-y: auto;
+  animation: design-case-in 0.3s ease;
+}
+
+@keyframes design-case-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.design-case-top {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.design-case-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: var(--dsn-ink);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.design-case-back:hover {
+  color: var(--dsn-accent);
+}
+
+.design-case-close {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: none;
+  color: var(--dsn-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.design-case-close:hover {
+  border-color: var(--dsn-accent);
+  color: var(--dsn-accent);
+}
+
+.design-case-header {
+  max-width: 900px;
+  margin: 56px auto 40px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.design-case-header .design-tile-category {
+  color: var(--dsn-accent);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.design-case-header h1 {
+  font-family: var(--heading-font);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  color: var(--dsn-ink);
+  margin: 12px 0;
+  letter-spacing: -0.01em;
+}
+
+.design-case-header .design-case-meta {
+  font-size: 0.95rem;
+  color: var(--dsn-muted);
+  opacity: 0.7;
+}
+
+.design-case-hero-image {
+  max-width: 900px;
+  margin: 0 auto 60px;
+  padding: 0 24px;
+}
+
+.design-case-hero-image img {
+  width: 100%;
+  max-height: min(75vh, 760px);
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+}
+
+.design-case-body {
+  max-width: 720px;
+  margin: 0 auto 60px;
+  padding: 0 24px;
+}
+
+.design-case-body h3 {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dsn-accent);
+  margin: 0 0 12px;
+}
+
+.design-case-body p {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--dsn-muted);
+  opacity: 0.85;
+  margin: 0 0 40px;
+}
+
+.design-case-services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.design-case-services span {
+  font-size: 0.85rem;
+  padding: 7px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--dsn-ink);
+}
+
+.design-case-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.design-case-tools span {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: var(--dsn-muted);
+  opacity: 0.75;
+}
+
+.design-case-tools span:not(:last-child)::after {
+  content: "·";
+  margin-left: 10px;
+  opacity: 0.5;
+}
+
+/* Image rhythm — alternates a full-width image with two-up pairs */
+.design-case-gallery {
+  max-width: 900px;
+  margin: 0 auto 20px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.design-case-gallery-full img {
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+}
+
+.design-case-gallery-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 22px;
+}
+
+.design-case-gallery-pair img {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+}
+
+@media (max-width: 575px) {
+  .design-case-gallery-pair {
+    grid-template-columns: 1fr;
+  }
+}
+
+.design-case-more {
+  max-width: 1200px;
+  margin: 80px auto 100px;
+  padding: 0 24px;
+}
+
+.design-case-more h3 {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dsn-accent);
+  margin-bottom: 22px;
+}
+
+.design-case-more-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.design-case-more-grid .design-tile {
+  aspect-ratio: 4 / 3;
+}
+
+@media (max-width: 767px) {
+  .design-case-more-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .design-case-header {
+    margin: 40px auto 28px;
+  }
+}
+
+/* ==========================================================================
+   PROTECTED IMAGES
+   A transparent shield sits over each image so long-press / right-click /
+   drag targets the shield rather than the file itself. Deters casual
+   saving; not a substitute for watermarking.
+   ========================================================================== */
+.protected-image {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.protected-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+}
+
+.protected-image-shield {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: transparent;
+}
+
+/* Case-study images are shown whole rather than cropped */
+.design-case-hero-image .protected-image img,
+.design-case-gallery .protected-image img {
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.design-case-gallery-pair .protected-image img {
+  height: auto;
+  object-fit: contain;
+}
+
+/* ==========================================================================
+   SETUP NOTE — shown until Cloudinary is configured
+   ========================================================================== */
+.design-setup-note {
+  max-width: 680px;
+  margin: 0 auto 80px;
+  padding: 28px 30px;
+  border: 1px dashed var(--border-color);
+  border-radius: 10px;
+  text-align: left;
+}
+
+.design-setup-note h3 {
+  font-family: var(--heading-font);
+  font-size: 1.1rem;
+  color: var(--dsn-ink);
+  margin: 0 0 10px;
+}
+
+.design-setup-note p {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--dsn-muted);
+  opacity: 0.8;
+  margin: 0;
+}
+
+.design-setup-note code {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(var(--accent-color-rgb), 0.12);
+  color: var(--dsn-accent);
+}
+
+/* ==========================================================================
+   MOBILE — titles only on gallery cards
+   On narrow two-up cards, long category names wrap awkwardly and push the
+   layout around, so the title alone carries the card.
+   ========================================================================== */
+@media (max-width: 767px) {
+  .design-tile-caption-category {
+    display: none;
+  }
+
+  .design-tile-caption-title {
+    font-size: 0.9rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .design-tile-overlay {
+    padding: 14px;
+  }
+
+  .design-tile-title {
+    font-size: 0.95rem;
+  }
+}
+
+/* ==========================================================================
+   ABOUT + CV DOWNLOAD
+   ========================================================================== */
+.design-about {
+  padding: 40px 20px 90px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.design-about-inner {
+  max-width: 700px;
+}
+
+.design-about .design-eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dsn-accent);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.design-about h2 {
+  font-family: var(--heading-font);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  color: var(--dsn-ink);
+  letter-spacing: -0.01em;
+  margin: 0 0 22px;
+}
+
+.design-about p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--dsn-muted);
+  opacity: 0.78;
+  margin: 0 0 18px;
+}
+
+.design-about-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 26px 0 32px;
+}
+
+.design-about-tools span {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  padding: 7px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--dsn-muted);
+}
+
+.design-cv-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  padding: 14px 26px;
+  border-radius: 999px;
+  border: 1px solid var(--dsn-ink);
+  color: var(--dsn-ink);
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.design-cv-button:hover {
+  background: var(--dsn-ink);
+  color: var(--background-color);
+  transform: translateY(-2px);
+}
+
+/* Secondary CV link alongside the hero CTA */
+.design-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 22px;
+}
+
+@media (max-width: 575px) {
+  .design-about {
+    padding: 20px 16px 70px;
+  }
+  .design-cv-button {
+    width: 100%;
+    justify-content: center;
+  }
+}

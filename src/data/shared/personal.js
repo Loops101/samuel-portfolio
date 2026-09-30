@@ -19,9 +19,9 @@ const personal = {
   profileImageSquare: "assets/img/profile/profile-square-3.jpeg",
 
   // Used on the general landing page
-  landingTagline: "Full-Stack Developer + SOC / Cybersecurity Analyst",
+  landingTagline: "Full-Stack Developer + SOC / Cybersecurity Analyst + Graphic Designer",
   landingStatement:
-    "I build secure, high-performance web applications and defend the systems that run them. Pick a path to explore that side of my work.",
+    "I build secure, high-performance web applications, defend the systems that run them, and design the visuals that represent them. Pick a path to explore that side of my work.",
 
   // Two resume files — kept deliberately separate so each portfolio links to
   // the CV tailored to that audience.
@@ -29,6 +29,10 @@ const personal = {
     developer: {
       label: "Full-Stack Developer CV",
       url: "assets/Resume/Samuel_Mbuvi_Obaigwa_CV_FullStack.pdf",
+    },
+    design: {
+      label: "Graphic Design CV",
+      url: "assets/Resume/Samuel_Mbuvi_Obaigwa_CV_Design.pdf",
     },
     soc: {
       label: "SOC Analyst CV",
